@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* =========================================
+  01. VARIABLES GLOBALES Y CONFIGURACIÓN
+  Colores principales, tipografía y ajustes
+  generales del documento.
+========================================= */
+
 :root {
   --background: #09090f;
   --surface: #11111b;
@@ -36,6 +42,11 @@ a {
   color: #09090f;
 }
 
+/* =========================================
+  02. FONDO GENERAL DEL PORTAFOLIO
+  Fondo principal y efectos de iluminación.
+========================================= */
+
 .portfolio {
   min-height: 100vh;
   overflow: hidden;
@@ -44,6 +55,11 @@ a {
     radial-gradient(ellipse at 8% 48%, #172f4c20, transparent 35%),
     var(--background);
 }
+
+/* =========================================
+  03. BARRA DE NAVEGACIÓN
+  Logo, enlaces del menú y botón de contacto.
+========================================= */
 
 .navbar {
   position: relative;
@@ -54,7 +70,13 @@ a {
   width: min(1200px, calc(100% - 64px));
   height: 88px;
   margin: auto;
-  border-bottom: 1px solid #ffffff12;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    #8b5cf6,
+    #06b6d4,
+    #ec4899
+  ) 1;
 }
 
 .brand {
@@ -112,6 +134,11 @@ a {
   font-size: 19px;
 }
 
+/* =========================================
+  04. HERO PRINCIPAL — RGB NEON
+  Iluminación ambiental estilo setup gamer.
+========================================= */
+
 .hero {
   position: relative;
   display: grid;
@@ -122,6 +149,52 @@ a {
   min-height: 680px;
   margin: auto;
   padding: 60px 0 105px;
+  isolation: isolate;
+}
+
+/* Luz ambiental que se proyecta sobre el fondo */
+
+.hero::before {
+  position: absolute;
+  z-index: -2;
+  top: -20px;
+  right: -150px;
+  width: 760px;
+  height: 650px;
+  background:
+    radial-gradient(ellipse at 65% 35%, #7c3aed55 0%, transparent 48%),
+    radial-gradient(ellipse at 35% 70%, #06b6d435 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 80%, #ec489930 0%, transparent 42%);
+  content: "";
+  filter: blur(65px);
+  pointer-events: none;
+  animation: rgb-room-glow 9s ease-in-out infinite alternate;
+}
+
+/* Reflejo LED inferior */
+
+.hero::after {
+  position: absolute;
+  z-index: -2;
+  right: 5%;
+  bottom: 30px;
+  left: 35%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #8b5cf6,
+    #06b6d4,
+    #ec4899,
+    transparent
+  );
+  content: "";
+  opacity: 0.65;
+  filter: blur(5px);
+  box-shadow:
+    0 0 12px #8b5cf6,
+    0 0 30px #06b6d4,
+    0 0 55px #ec4899;
 }
 
 .hero-content {
@@ -129,33 +202,47 @@ a {
   z-index: 2;
 }
 
+/* Etiqueta superior */
+
 .availability {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
-  border: 1px solid #ffffff16;
+  padding: 10px 15px;
+  border: 1px solid #a78bfa55;
   border-radius: 30px;
-  background: #ffffff05;
-  color: #c2bdd6;
+  background: linear-gradient(110deg, #a78bfa16, #06b6d410);
+  color: #e5dcff;
   font-size: 9px;
   letter-spacing: 1.3px;
+  box-shadow:
+    0 0 12px #a78bfa18,
+    inset 0 0 12px #a78bfa0c;
+  backdrop-filter: blur(12px);
 }
 
 .status-dot {
   width: 7px;
   height: 7px;
+  flex-shrink: 0;
   border-radius: 50%;
-  background: #a78bfa;
-  box-shadow: 0 0 12px #a78bfa;
+  background: #c4b5fd;
+  box-shadow:
+    0 0 5px #c4b5fd,
+    0 0 12px #a78bfa,
+    0 0 22px #a78bfa;
+  animation: led-status 2s ease-in-out infinite;
 }
 
 .eyebrow {
   margin: 30px 0 17px;
-  color: #b8a1ff;
+  color: #d8b4fe;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2.8px;
+  text-shadow:
+    0 0 8px #a855f7,
+    0 0 20px #a855f755;
 }
 
 .hero h1 {
@@ -164,25 +251,33 @@ a {
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -3.5px;
+  text-shadow: 0 0 35px #a78bfa12;
 }
 
 .gradient-text {
-  color: transparent;
+  color: #f0abfc;
   background: linear-gradient(
     100deg,
     #c4b5fd 0%,
-    #a78bfa 35%,
-    #f0abfc 70%,
-    #f9a8d4 100%
+    #a78bfa 25%,
+    #60a5fa 55%,
+    #22d3ee 75%,
+    #f0abfc 100%
   );
+  background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
+  filter:
+    drop-shadow(0 0 5px #a855f7)
+    drop-shadow(0 0 15px #8b5cf680)
+    drop-shadow(0 0 32px #06b6d455);
+  animation: rgb-letter-glow 7s linear infinite;
 }
 
 .hero-description {
   max-width: 490px;
   margin: 25px 0 0;
-  color: var(--muted);
+  color: #c0bbd3;
   font-size: 15px;
   line-height: 1.9;
 }
@@ -209,29 +304,42 @@ a {
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
+    border-color 0.25s ease,
     background 0.25s ease;
 }
 
 .button-primary {
   background: linear-gradient(110deg, #a78bfa, #d8a0f8);
   color: #100d1a;
-  box-shadow: 0 5px 30px #a78bfa22;
+  box-shadow:
+    0 0 12px #a78bfa90,
+    0 0 28px #a78bfa55,
+    0 0 55px #8b5cf625;
 }
 
 .button-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 35px #a78bfa45;
+  box-shadow:
+    0 0 16px #c4b5fd,
+    0 0 35px #a78bfa90,
+    0 0 65px #8b5cf655;
 }
 
 .button-secondary {
-  border-color: #ffffff20;
-  background: #ffffff04;
-  color: #e6e0f5;
+  border-color: #a78bfa55;
+  background: #a78bfa0c;
+  color: #eee7ff;
+  box-shadow: 0 0 15px #a78bfa12;
+  backdrop-filter: blur(10px);
 }
 
 .button-secondary:hover {
   transform: translateY(-3px);
-  background: #ffffff0c;
+  border-color: #c4b5fd;
+  background: #a78bfa20;
+  box-shadow:
+    0 0 12px #a78bfa55,
+    0 0 25px #a78bfa25;
 }
 
 .hero-footer {
@@ -239,7 +347,7 @@ a {
   align-items: center;
   gap: 12px;
   margin-top: 56px;
-  color: #79758f;
+  color: #a39abf;
   font-size: 8px;
   letter-spacing: 1.2px;
 }
@@ -247,8 +355,16 @@ a {
 .footer-line {
   width: 32px;
   height: 1px;
-  background: #a78bfa80;
+  background: #a78bfa;
+  box-shadow:
+    0 0 6px #a78bfa,
+    0 0 13px #a78bfa;
 }
+
+/* =========================================
+  05. ESCENARIO RGB DEL HERO
+  Orbe luminoso, anillos LED y paneles.
+========================================= */
 
 .hero-art {
   position: relative;
@@ -259,16 +375,37 @@ a {
   isolation: isolate;
 }
 
+/* Gran halo de luz detrás del núcleo */
+
 .hero-art::before {
   position: absolute;
-  z-index: -1;
-  width: 350px;
-  height: 350px;
+  z-index: -2;
+  width: 430px;
+  height: 430px;
   border-radius: 50%;
-  background: #8b5cf625;
+  background:
+    radial-gradient(circle, #8b5cf650 0%, #7c3aed25 35%, transparent 70%);
   content: "";
-  filter: blur(70px);
+  filter: blur(55px);
+  animation: rgb-aura 6s ease-in-out infinite alternate;
 }
+
+/* Segundo halo de color */
+
+.hero-art::after {
+  position: absolute;
+  z-index: -3;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #06b6d425, transparent 65%);
+  content: "";
+  filter: blur(45px);
+  animation: cyan-aura 8s ease-in-out infinite alternate;
+}
+
+/* Esfera central */
 
 .hero-orb {
   position: relative;
@@ -276,68 +413,170 @@ a {
   width: min(290px, 75%);
   aspect-ratio: 1;
   place-items: center;
-  border: 1px solid #c4b5fd35;
+  border: 1px solid #c4b5fd90;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 35% 28%, #f0abfc35, transparent 35%),
-    radial-gradient(circle at 65% 70%, #3b82f635, transparent 45%),
-    linear-gradient(140deg, #211735, #10101e 70%);
+    radial-gradient(circle at 35% 25%, #f0abfc65, transparent 30%),
+    radial-gradient(circle at 70% 75%, #06b6d455, transparent 45%),
+    radial-gradient(circle at 50% 50%, #a855f735, transparent 70%),
+    linear-gradient(145deg, #211735, #0c1021 75%);
   box-shadow:
-    inset 0 0 55px #a78bfa16,
-    0 0 80px #8b5cf61a;
+    inset 0 0 35px #c084fc35,
+    inset 0 0 90px #3b82f640,
+    0 0 15px #c084fc,
+    0 0 35px #a855f790,
+    0 0 75px #8b5cf680,
+    0 0 130px #3b82f640;
   animation: orb-float 7s ease-in-out infinite;
 }
 
+/* Anillo LED exterior */
+
+.hero-orb::before {
+  position: absolute;
+  inset: -15px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(#09090f, #09090f) padding-box,
+    conic-gradient(
+      from 0deg,
+      #a78bfa,
+      #60a5fa,
+      #22d3ee,
+      transparent 48%,
+      #f472b6,
+      #a78bfa
+    ) border-box;
+  content: "";
+  filter:
+    drop-shadow(0 0 5px #a78bfa)
+    drop-shadow(0 0 12px #06b6d4);
+  animation: led-ring 12s linear infinite;
+}
+
+/* Anillo interior */
+
+.hero-orb::after {
+  position: absolute;
+  inset: 10%;
+  border: 1px solid #60a5fa65;
+  border-radius: 50%;
+  content: "";
+  box-shadow:
+    0 0 12px #60a5fa75,
+    inset 0 0 25px #8b5cf640;
+  animation: inner-ring 4s ease-in-out infinite;
+}
+
+/* Cubo central */
+
 .orb-core {
+  position: relative;
+  z-index: 1;
   display: grid;
   width: 44%;
   aspect-ratio: 1;
   place-items: center;
-  border: 1px solid #d8b4fe60;
+  border: 1px solid #f0abfc;
   border-radius: 30%;
-  background: linear-gradient(145deg, #a78bfa30, #f472b620);
-  box-shadow: 0 0 45px #a78bfa25;
+  background:
+    linear-gradient(145deg, #c084fc65, #6366f155 55%, #22d3ee35);
+  box-shadow:
+    inset 0 0 22px #ffffff30,
+    0 0 10px #f0abfc,
+    0 0 25px #c084fc,
+    0 0 50px #a855f7a0,
+    0 0 75px #6366f155;
   transform: rotate(-10deg);
+  animation: core-led 3s ease-in-out infinite;
 }
 
 .orb-core span {
-  color: #e9d5ff;
+  color: #fff;
   font-size: clamp(34px, 5vw, 57px);
   font-weight: 800;
+  text-shadow:
+    0 0 8px #fff,
+    0 0 18px #e9d5ff,
+    0 0 35px #c084fc;
   transform: rotate(10deg);
 }
+
+/* Órbitas */
 
 .orbit {
   position: absolute;
   z-index: -1;
   width: 95%;
   height: 47%;
-  border: 1px solid #c4b5fd45;
+  border: 1px solid #c4b5fd90;
   border-radius: 50%;
+  box-shadow:
+    0 0 7px #a78bfa70,
+    inset 0 0 7px #a78bfa35;
   transform: rotate(-32deg);
+  animation: orbit-led 18s linear infinite;
 }
 
 .orbit-two {
   width: 95%;
   height: 63%;
-  border-color: #60a5fa30;
+  border-color: #22d3ee75;
+  box-shadow:
+    0 0 8px #22d3ee70,
+    inset 0 0 8px #22d3ee30;
   transform: rotate(54deg);
+  animation: orbit-led-reverse 23s linear infinite;
 }
+
+/* Tarjetas de cristal */
 
 .floating-card {
   position: absolute;
   z-index: 2;
-  border: 1px solid #ffffff1b;
+  overflow: hidden;
+  border: 1px solid #a78bfa65;
   border-radius: 12px;
-  background: #13121ef2;
-  box-shadow: 0 18px 65px #00000045;
-  backdrop-filter: blur(16px);
+  background: linear-gradient(135deg, #1b1830f5, #111321f5);
+  box-shadow:
+    0 18px 55px #00000070,
+    0 0 12px #a78bfa35,
+    0 0 28px #8b5cf625,
+    inset 0 1px 0 #ffffff20;
+  backdrop-filter: blur(18px);
+}
+
+/* Reflejo que cruza los paneles */
+
+.floating-card::before {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    #ffffff12,
+    #c4b5fd25,
+    transparent
+  );
+  content: "";
+  pointer-events: none;
+  animation: panel-reflection 7s ease-in-out infinite;
 }
 
 .code-card {
   top: 36px;
   right: -5px;
   width: 260px;
+  border-color: #c4b5fd85;
+  box-shadow:
+    0 18px 55px #00000070,
+    0 0 12px #a78bfa70,
+    0 0 30px #8b5cf640,
+    inset 0 1px 0 #ffffff25;
   animation: card-float 6s ease-in-out infinite;
 }
 
@@ -346,7 +585,8 @@ a {
   align-items: center;
   gap: 5px;
   padding: 12px;
-  border-bottom: 1px solid #ffffff10;
+  border-bottom: 1px solid #a78bfa30;
+  background: #a78bfa0c;
 }
 
 .window-dot {
@@ -357,19 +597,22 @@ a {
 
 .pink {
   background: #f472b6;
+  box-shadow: 0 0 8px #f472b6;
 }
 
 .yellow {
   background: #facc15;
+  box-shadow: 0 0 8px #facc15;
 }
 
 .green {
   background: #86efac;
+  box-shadow: 0 0 8px #86efac;
 }
 
 .file-name {
   margin-left: 6px;
-  color: #a6a0b9;
+  color: #c4bddb;
   font-size: 9px;
 }
 
@@ -391,20 +634,25 @@ a {
 
 .code-purple {
   color: #c4b5fd;
+  text-shadow: 0 0 8px #a78bfa70;
 }
 
 .code-green {
   color: #86efac;
+  text-shadow: 0 0 8px #86efac50;
 }
 
 .code-pink {
   color: #f9a8d4;
+  text-shadow: 0 0 8px #f472b650;
 }
 
 .code-comment {
-  margin-top: 15px !important;
-  color: #77728d;
+  margin-top: 15px;
+  color: #9990b5;
 }
+
+/* Tarjeta tecnológica */
 
 .tech-card {
   bottom: 65px;
@@ -413,6 +661,11 @@ a {
   align-items: center;
   gap: 12px;
   padding: 15px;
+  border-color: #22d3ee75;
+  box-shadow:
+    0 18px 45px #00000070,
+    0 0 12px #22d3ee55,
+    0 0 30px #06b6d425;
   animation: card-float 7s ease-in-out infinite reverse;
 }
 
@@ -421,10 +674,15 @@ a {
   width: 38px;
   height: 38px;
   place-items: center;
+  border: 1px solid #22d3ee55;
   border-radius: 10px;
-  background: #a78bfa20;
-  color: #c4b5fd;
+  background: #22d3ee18;
+  color: #67e8f9;
   font-size: 18px;
+  text-shadow: 0 0 12px #22d3ee;
+  box-shadow:
+    0 0 10px #22d3ee55,
+    inset 0 0 12px #22d3ee20;
 }
 
 .tech-card div {
@@ -438,9 +696,17 @@ a {
   letter-spacing: 1px;
 }
 
-.tech-card div span {
-  color: #a78bfa;
+.tech-card strong {
+  color: #f4f0ff;
+  text-shadow: 0 0 8px #a78bfa60;
 }
+
+.tech-card div span {
+  color: #67e8f9;
+  text-shadow: 0 0 10px #22d3ee90;
+}
+
+/* Destello flotante */
 
 .spark-card {
   top: 105px;
@@ -449,9 +715,14 @@ a {
   width: 42px;
   height: 42px;
   place-items: center;
+  border-color: #f0abfc90;
   color: #f0abfc;
   font-size: 25px;
-  animation: spin 18s linear infinite;
+  box-shadow:
+    0 0 10px #f0abfc,
+    0 0 25px #d946ef80,
+    inset 0 0 12px #f0abfc25;
+  animation: spark-led 5s ease-in-out infinite;
 }
 
 .art-caption {
@@ -461,10 +732,13 @@ a {
   left: 0;
   display: flex;
   justify-content: space-between;
-  color: #79758f;
+  color: #a9a0c9;
   font-size: 8px;
   letter-spacing: 1.1px;
+  text-shadow: 0 0 9px #a78bfa50;
 }
+
+/* Indicador para desplazarse */
 
 .scroll-indicator {
   position: absolute;
@@ -473,7 +747,7 @@ a {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #88839c;
+  color: #aaa2c4;
   font-size: 8px;
   letter-spacing: 1.6px;
 }
@@ -481,14 +755,16 @@ a {
 .scroll-indicator > span:last-child {
   color: #c4b5fd;
   font-size: 15px;
+  text-shadow: 0 0 10px #a78bfa;
 }
 
 .scroll-mouse {
   position: relative;
   width: 15px;
   height: 22px;
-  border: 1px solid #a78bfa80;
+  border: 1px solid #a78bfa;
   border-radius: 10px;
+  box-shadow: 0 0 8px #a78bfa70;
 }
 
 .scroll-mouse::after {
@@ -500,15 +776,26 @@ a {
   border-radius: 2px;
   background: #c4b5fd;
   content: "";
+  box-shadow: 0 0 7px #c4b5fd;
   animation: scroll-down 1.5s ease-in-out infinite;
 }
 
-.projects-intro,
-.about-intro {
+/* =========================================
+  06. INTRODUCCIÓN A PROYECTOS Y SOBRE MÍ
+  Títulos, descripciones y distribución.
+========================================= */
+
+.projects-intro {
   width: min(1200px, calc(100% - 64px));
   margin: auto;
   padding: 105px 0;
-  border-top: 1px solid #ffffff12;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    rgba(168, 85, 247, 0.65),
+    rgba(34, 211, 238, 0.2),
+    transparent
+  ) 1;
 }
 
 .projects-intro {
@@ -523,21 +810,18 @@ a {
   color: #77718f;
 }
 
-.projects-intro .eyebrow,
-.about-intro .eyebrow {
+.projects-intro .eyebrow {
   margin-top: 0;
 }
 
-.projects-intro h2,
-.about-intro h2 {
+.projects-intro h2 {
   margin: 0;
   font-size: clamp(31px, 4vw, 49px);
   line-height: 1.25;
   letter-spacing: -1.8px;
 }
 
-.projects-description,
-.about-intro > p:last-child {
+.projects-description {
   max-width: 450px;
   margin: 0 0 5px;
   color: var(--muted);
@@ -545,51 +829,10 @@ a {
   line-height: 1.9;
 }
 
-.project-placeholder {
-  display: grid;
-  min-height: 230px;
-  grid-column: 1 / -1;
-  align-content: center;
-  justify-items: center;
-  gap: 12px;
-  margin-top: 55px;
-  border: 1px dashed #a78bfa40;
-  border-radius: 18px;
-  background:
-    radial-gradient(ellipse at center, #a78bfa0c, transparent 65%),
-    #ffffff02;
-  text-align: center;
-}
-
-.placeholder-symbol {
-  color: #c4b5fd;
-  font-size: 32px;
-}
-
-.project-placeholder p {
-  margin: 0;
-  color: #e9d5ff;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-.project-placeholder > span:last-child {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.about-intro {
-  text-align: center;
-}
-
-.about-intro .eyebrow {
-  margin-bottom: 25px;
-}
-
-.about-intro > p:last-child {
-  margin: 25px auto 0;
-}
+/* =========================================
+  07. PIE DE PÁGINA GENERAL
+  Información y marca del portafolio.
+========================================= */
 
 .site-footer {
   display: flex;
@@ -600,7 +843,13 @@ a {
   width: min(1200px, calc(100% - 64px));
   margin: auto;
   padding: 28px 0;
-  border-top: 1px solid #ffffff12;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    #8b5cf6,
+    #06b6d4,
+    #ec4899
+  ) 1;
 }
 
 .site-footer > p,
@@ -608,6 +857,11 @@ a {
   color: #858098;
   font-size: 11px;
 }
+
+/* =========================================
+  08. ANIMACIONES GENERALES
+  Movimientos de la esfera, tarjetas y scroll.
+========================================= */
 
 @keyframes orb-float {
   0%, 100% {
@@ -644,6 +898,11 @@ a {
   }
 }
 
+/* =========================================
+  09. ADAPTACIÓN GENERAL PARA TABLET
+  Ajustes del hero y la introducción.
+========================================= */
+
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
@@ -674,11 +933,15 @@ a {
   }
 }
 
+/* =========================================
+  10. ADAPTACIÓN GENERAL PARA MÓVILES
+  Menú, hero, presentación y pie de página.
+========================================= */
+
 @media (max-width: 600px) {
   .navbar,
   .hero,
   .projects-intro,
-  .about-intro,
   .site-footer {
     width: calc(100% - 36px);
   }
@@ -761,24 +1024,13 @@ a {
     bottom: 24px;
   }
 
-  .projects-intro,
-  .about-intro {
+  .projects-intro {
     padding: 75px 0;
   }
 
-  .projects-intro h2,
-  .about-intro h2 {
+  .projects-intro h2 {
     font-size: 34px;
     letter-spacing: -1px;
-  }
-
-  .project-placeholder {
-    min-height: 200px;
-    padding: 20px;
-  }
-
-  .project-placeholder p {
-    font-size: 9px;
   }
 
   .site-footer {
@@ -793,6 +1045,11 @@ a {
   }
 }
 
+/* =========================================
+  11. ACCESIBILIDAD
+  Respeta la preferencia de movimiento reducido.
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -805,7 +1062,8 @@ a {
 }
 
 /* =========================================
-  GALERÍA DE PROYECTOS
+  12. GALERÍA DE PROYECTOS
+  Distribución, tarjetas y efectos generales.
 ========================================= */
 
 .projects-grid {
@@ -877,6 +1135,11 @@ a {
   border: 1px solid #ffffff08;
   border-radius: inherit;
 }
+
+/* =========================================
+  13. TARJETA JOHA SHOP
+  Portada, marca y elementos decorativos.
+========================================= */
 
 .joha-cover {
   background:
@@ -974,6 +1237,11 @@ a {
 .project-joha:hover .joha-flower {
   transform: rotate(25deg) scale(1.08);
 }
+
+/* =========================================
+  14. TARJETA PEED
+  Panel ilustrativo y elementos del dashboard.
+========================================= */
 
 .peed-cover {
   align-items: center;
@@ -1166,77 +1434,10 @@ a {
   width: 53%;
 }
 
-.game-cover {
-  background:
-    radial-gradient(ellipse at 70% 50%, #fb923c30, transparent 42%),
-    linear-gradient(145deg, #241b20, #141219 65%, #291b23);
-}
-
-.game-cover::before {
-  top: 12%;
-  right: 10%;
-  width: 220px;
-  height: 220px;
-  border: 1px solid #fb923c40;
-  box-shadow: 0 0 0 20px #fb923c09;
-}
-
-.game-topline {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  color: #e6bca5;
-  font-size: 8px;
-  letter-spacing: 1.5px;
-}
-
-.game-visual {
-  position: relative;
-  align-self: center;
-  width: 100%;
-  max-width: 340px;
-  padding: 10px 0;
-}
-
-.game-kicker {
-  color: #fdba74;
-  font-size: 8px;
-  letter-spacing: 3px;
-}
-
-.game-visual strong {
-  display: block;
-  margin: 12px 0;
-  color: #fff5ee;
-  font-size: clamp(32px, 5vw, 51px);
-  font-weight: 900;
-  line-height: 0.92;
-  letter-spacing: -2px;
-  text-shadow: 0 4px 35px #fb923c20;
-}
-
-.game-visual strong span {
-  color: #fb923c;
-}
-
-.game-decoration {
-  position: absolute;
-  top: -22px;
-  right: 5px;
-  color: #fdba74;
-  font-size: 55px;
-  opacity: 0.75;
-}
-
-.game-button {
-  display: inline-block;
-  margin-top: 5px;
-  padding: 9px 12px;
-  border: 1px solid #fb923c75;
-  color: #ffcfaa;
-  font-size: 7px;
-  letter-spacing: 1.5px;
-}
+/* =========================================
+  15. INFORMACIÓN GENERAL DE LAS TARJETAS
+  Categorías, estados, títulos y descripciones.
+========================================= */
 
 .project-info {
   padding: 23px 24px 19px;
@@ -1304,6 +1505,11 @@ a {
   line-height: 1.85;
 }
 
+/* =========================================
+  16. ETIQUETAS TECNOLÓGICAS
+  Tecnologías utilizadas en cada proyecto.
+========================================= */
+
 .project-tags {
   display: flex;
   flex-wrap: wrap;
@@ -1319,6 +1525,11 @@ a {
   color: #c7c0dd;
   font-size: 9px;
 }
+
+/* =========================================
+  17. PARTE INFERIOR DE LAS TARJETAS
+  Numeración y enlace para explorar proyectos.
+========================================= */
 
 .project-bottom {
   display: flex;
@@ -1363,6 +1574,12 @@ a.project-action:hover span {
   transform: translate(3px, -3px);
 }
 
+/* =========================================
+  18. RESPONSIVE DE LA GALERÍA
+  Adaptación de las tarjetas para pantallas
+  pequeñas.
+========================================= */
+
 @media (max-width: 700px) {
   .projects-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1387,6 +1604,12 @@ a.project-action:hover span {
   }
 }
 
+/* =========================================
+  19. ACCESIBILIDAD DE LAS TARJETAS
+  Desactiva transiciones cuando el usuario
+  prefiere movimiento reducido.
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
   .project-card,
   .joha-flower,
@@ -1396,9 +1619,10 @@ a.project-action:hover span {
   }
 }
 
-/* ========================================
-  CAJA VELOX — TARJETA DEL PORTAFOLIO
-======================================== */
+/* =========================================
+  20. CAJA VELOX — TARJETA DEL PORTAFOLIO
+  Colores, portada y panel ilustrativo POS.
+========================================= */
 
 .project-velox {
   --velox-cyan: #35e0d0;
@@ -1647,50 +1871,14 @@ a.project-action:hover span {
   filter: drop-shadow(0 0 4px rgba(53, 224, 208, 0.3));
 }
 
-.project-velox .velox-cover-caption {
-  position: absolute;
-  right: 15px;
-  bottom: 12px;
-  color: rgba(230, 184, 92, 0.7);
-  font-size: 0.52rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-.project-velox .project-card-top .project-status {
-  border-color: rgba(53, 224, 208, 0.2);
-}
-
-.project-velox .project-card-top .status-dot {
-  background: var(--velox-cyan);
-  box-shadow: 0 0 9px rgba(53, 224, 208, 0.45);
-}
-
-.project-velox .project-card-top .project-arrow {
-  color: var(--velox-gold);
-}
-
 .project-velox .project-tags span {
   border-color: rgba(53, 224, 208, 0.12);
 }
 
-.project-velox .project-card-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  color: var(--velox-cyan);
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.project-velox .project-card-cta span {
-  transition: transform 0.2s ease;
-}
-
-.project-velox:hover .project-card-cta span {
-  transform: translateX(4px);
-}
+/* =========================================
+  21. RESPONSIVE DE CAJA VELOX
+  Ajustes de la tarjeta POS para móviles.
+========================================= */
 
 @media (max-width: 600px) {
   .project-velox .velox-cover {
@@ -1709,9 +1897,1231 @@ a.project-action:hover span {
   .project-velox .velox-preview-total strong {
     font-size: 1.25rem;
   }
+}
 
-  .project-velox .velox-cover-caption {
-    font-size: 0.45rem;
-    letter-spacing: 1.3px;
+/* =========================================
+  22. ANIMACIONES DE ILUMINACIÓN RGB
+  Reflejos, pulsaciones y movimiento de luz.
+========================================= */
+
+@keyframes rgb-room-glow {
+  0% {
+    transform: translate(0, 0) scale(0.9);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate(-35px, 20px) scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes rgb-aura {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes cyan-aura {
+  0% {
+    transform: translate(-20px, 10px) scale(0.9);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(20px, -15px) scale(1.15);
+    opacity: 0.9;
+  }
+}
+
+@keyframes led-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes inner-ring {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes core-led {
+  0%, 100% {
+    box-shadow:
+      inset 0 0 22px #ffffff30,
+      0 0 10px #f0abfc,
+      0 0 25px #c084fc,
+      0 0 50px #a855f780;
+  }
+  50% {
+    box-shadow:
+      inset 0 0 30px #ffffff45,
+      0 0 18px #ffffff,
+      0 0 35px #22d3ee,
+      0 0 65px #a855f7;
+  }
+}
+
+@keyframes orbit-led {
+  from {
+    transform: rotate(-32deg);
+  }
+  to {
+    transform: rotate(328deg);
+  }
+}
+
+@keyframes orbit-led-reverse {
+  from {
+    transform: rotate(54deg);
+  }
+  to {
+    transform: rotate(-306deg);
+  }
+}
+
+@keyframes panel-reflection {
+  0%, 20% {
+    left: -120%;
+  }
+  65%, 100% {
+    left: 150%;
+  }
+}
+
+@keyframes spark-led {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    filter: brightness(0.9);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.13);
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes led-status {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes rgb-letter-glow {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* =========================================
+  23. AJUSTES RESPONSIVE DEL HERO RGB
+========================================= */
+
+@media (max-width: 900px) {
+  .hero::before {
+    right: -100px;
+    width: 650px;
+  }
+
+  .hero-art::before {
+    width: 370px;
+    height: 370px;
+  }
+
+  .code-card {
+    right: 5px;
+  }
+
+  .tech-card {
+    left: 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    overflow: visible;
+  }
+
+  .hero::before {
+    top: 100px;
+    right: -170px;
+    width: 480px;
+    height: 500px;
+  }
+
+  .hero::after {
+    left: 10%;
+  }
+
+  .hero-art {
+    min-height: 350px;
+  }
+
+  .hero-art::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .hero-art::after {
+    width: 260px;
+    height: 260px;
+  }
+
+  .hero-orb {
+    width: min(250px, 70%);
+  }
+
+  .code-card {
+    top: 20px;
+    right: 0;
+    width: 215px;
+  }
+
+  .tech-card {
+    bottom: 45px;
+    left: 0;
+  }
+
+  .spark-card {
+    top: 75px;
+    left: 0;
+  }
+
+  .art-caption {
+    font-size: 6px;
+  }
+}
+
+/* =========================================
+  24. MOVIMIENTO REDUCIDO
+  Accesibilidad para quienes prefieren
+  menos animaciones.
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .hero-art::before,
+  .hero-art::after,
+  .hero-orb,
+  .hero-orb::before,
+  .hero-orb::after,
+  .orb-core,
+  .orbit,
+  .orbit-two,
+  .floating-card::before,
+  .code-card,
+  .tech-card,
+  .spark-card,
+  .gradient-text,
+  .status-dot {
+    animation: none !important;
+  }
+}
+
+/* =========================================
+  25. PROYECTOS — IDENTIDAD RGB NEON
+  Iluminación y profundidad para las tarjetas.
+========================================= */
+
+/* Tarjetas con acabado tecnológico */
+
+.project-card {
+  position: relative;
+  border-color: #a78bfa25;
+  background:
+    linear-gradient(145deg, #151321, #0d0c16 75%);
+  box-shadow:
+    0 12px 35px #00000035,
+    inset 0 1px 0 #ffffff08;
+  transition:
+    transform 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* Iluminación ambiental al pasar el cursor */
+
+.project-card:hover {
+  transform: translateY(-9px);
+  border-color: #a78bfa85;
+  box-shadow:
+    0 18px 45px #00000055,
+    0 0 12px #a78bfa55,
+    0 0 30px #8b5cf640,
+    0 0 65px #6366f120,
+    inset 0 1px 0 #ffffff15;
+}
+
+/* Reflejo de luz sobre la portada */
+
+.project-cover {
+  isolation: isolate;
+}
+
+.project-cover::after {
+  border-color: #ffffff15;
+  box-shadow:
+    inset 0 0 25px #ffffff05,
+    0 0 15px #a78bfa10;
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.project-card:hover .project-cover::after {
+  border-color: #c4b5fd55;
+  box-shadow:
+    inset 0 0 30px #a78bfa12,
+    0 0 20px #a78bfa25;
+}
+
+/* Luz violeta para Joha Shop */
+
+.project-joha:hover {
+  box-shadow:
+    0 18px 45px #00000055,
+    0 0 15px #f472b655,
+    0 0 40px #d946ef30;
+}
+
+/* Luz azul para PEED */
+
+.project-peed:hover {
+  border-color: #818cf8a0;
+  box-shadow:
+    0 18px 45px #00000055,
+    0 0 15px #818cf870,
+    0 0 40px #6366f140;
+}
+
+/* Luz cian para Caja Velox */
+
+.project-velox:hover {
+  border-color: #35e0d0a0;
+  box-shadow:
+    0 18px 45px #00000055,
+    0 0 15px #35e0d080,
+    0 0 40px #06b6d440;
+}
+
+/* Información de los proyectos */
+
+.project-info h3 {
+  transition:
+    color 0.3s ease,
+    text-shadow 0.3s ease;
+}
+
+.project-card:hover .project-info h3 {
+  color: #ffffff;
+  text-shadow: 0 0 15px #a78bfa65;
+}
+
+.project-info > p {
+  color: #b2adc5;
+}
+
+/* Etiquetas tecnológicas con acabado LED */
+
+.project-tags span {
+  border-color: #a78bfa25;
+  background: linear-gradient(135deg, #a78bfa10, #60a5fa08);
+  color: #d5c9f5;
+  box-shadow: inset 0 0 10px #a78bfa08;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.project-card:hover .project-tags span {
+  border-color: #a78bfa50;
+  background: #a78bfa12;
+  box-shadow: 0 0 10px #a78bfa15;
+}
+
+/* Enlace para explorar */
+
+.project-action {
+  text-shadow: 0 0 10px #a78bfa25;
+}
+
+.project-action span {
+  text-shadow: 0 0 10px #f0abfc80;
+}
+
+/* =========================================
+  26. INTRODUCCIÓN A PROYECTOS — NEON
+  Título y detalles de la sección.
+========================================= */
+
+.projects-intro {
+  position: relative;
+}
+
+.projects-intro h2 {
+  text-shadow: 0 0 25px #a78bfa15;
+}
+
+.projects-intro .eyebrow {
+  color: #c4b5fd;
+  text-shadow:
+    0 0 8px #a78bfa80,
+    0 0 18px #8b5cf640;
+}
+
+.section-number {
+  color: #67e8f9;
+  text-shadow: 0 0 10px #22d3ee70;
+}
+
+/* =========================================
+  27. ACCESIBILIDAD DE LOS EFECTOS RGB
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-cover::after,
+  .project-info h3,
+  .project-tags span {
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+  28. SECCIÓN SOBRE MÍ - ESTRUCTURA RGB
+========================================================= */
+
+.about-section {
+  position: relative;
+  width: min(1200px, calc(100% - 64px));
+  margin: 150px auto 130px;
+  padding: 0;
+}
+
+.about-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 80px;
+  margin-bottom: 65px;
+}
+
+.about-heading .eyebrow {
+  order: 2;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.about-heading-line {
+  order: 1;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(168, 85, 247, 0.65),
+    rgba(34, 211, 238, 0.2),
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: 95px;
+}
+
+/* =========================================================
+  29. PANEL VISUAL DE PERFIL
+========================================================= */
+
+.about-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 440px;
+  isolation: isolate;
+}
+
+.about-visual-glow {
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(168, 85, 247, 0.5),
+    rgba(236, 72, 153, 0.45),
+    rgba(34, 211, 238, 0.5),
+    rgba(168, 85, 247, 0.5)
+  );
+  filter: blur(85px);
+  opacity: 0.55;
+  z-index: -1;
+  animation: about-glow 9s ease-in-out infinite alternate;
+}
+
+.about-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 320px;
+  height: 365px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(25, 20, 43, 0.96), rgba(10, 12, 25, 0.98));
+  box-shadow:
+    0 0 25px rgba(168, 85, 247, 0.16),
+    0 0 65px rgba(34, 211, 238, 0.08),
+    inset 0 0 35px rgba(168, 85, 247, 0.07);
+  animation: about-frame-glow 7s ease-in-out infinite alternate;
+}
+
+.about-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.07) 45%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  animation: about-reflection 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.about-frame-top,
+.about-frame-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  color: #aaa4bd;
+}
+
+.about-live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #67f5c1;
+}
+
+.about-live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #67f5c1;
+  box-shadow: 0 0 10px #67f5c1;
+  animation: about-live-pulse 1.8s infinite;
+}
+
+.about-monogram {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 205px;
+  height: 205px;
+  margin: auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(168, 85, 247, 0.18), transparent 68%);
+}
+
+.about-monogram > span {
+  font-size: 125px;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(
+    135deg,
+    #ffffff 10%,
+    #d8a7ff 45%,
+    #8b5cf6 75%,
+    #22d3ee 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.65));
+}
+
+.about-monogram-ring {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  border-radius: 50%;
+  box-shadow:
+    0 0 15px rgba(34, 211, 238, 0.15),
+    inset 0 0 15px rgba(168, 85, 247, 0.15);
+  animation: about-ring-rotate 12s linear infinite;
+}
+
+.about-monogram-ring::before,
+.about-monogram-ring::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.about-monogram-ring::before {
+  top: 20px;
+  right: 27px;
+  background: #22d3ee;
+  box-shadow: 0 0 15px #22d3ee;
+}
+
+.about-monogram-ring::after {
+  bottom: 25px;
+  left: 18px;
+  background: #ec4899;
+  box-shadow: 0 0 15px #ec4899;
+}
+
+.about-frame-bottom {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.about-frame-bottom span:first-child {
+  color: #fff;
+  font-weight: 700;
+}
+
+.about-frame-bottom span:last-child {
+  color: #a78bfa;
+}
+
+.about-decoration {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(15, 13, 30, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.2);
+}
+
+.about-decoration-one {
+  top: 55px;
+  right: 5px;
+  width: 57px;
+  height: 57px;
+  border-radius: 15px;
+  color: #22d3ee;
+  font-size: 21px;
+  animation: about-float 4s ease-in-out infinite;
+}
+
+.about-decoration-two {
+  bottom: 65px;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #ec4899;
+  font-size: 25px;
+  animation: about-float 5s ease-in-out infinite reverse;
+}
+
+.about-coordinate {
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  color: rgba(190, 180, 215, 0.55);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+/* =========================================================
+  30. TEXTO Y CONTENIDO
+========================================================= */
+
+.about-text {
+  position: relative;
+}
+
+.about-kicker {
+  display: inline-block;
+  margin-bottom: 22px;
+  color: #22d3ee;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.55);
+}
+
+.about-text h2 {
+  margin: 0 0 28px;
+  color: #fff;
+  font-size: clamp(32px, 4vw, 49px);
+  font-weight: 800;
+  line-height: 1.17;
+  letter-spacing: -1.8px;
+}
+
+.about-text h2 .gradient-text {
+  filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.3));
+}
+
+.about-text > p {
+  max-width: 570px;
+  margin: 0 0 18px;
+  color: #aaa7b8;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.about-signature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 35px;
+  color: #c4b5fd;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.about-signature-line {
+  width: 38px;
+  height: 1px;
+  background: #a855f7;
+  box-shadow: 0 0 12px #a855f7;
+}
+
+/* =========================================================
+  31. ANIMACIONES SOBRE MÍ
+========================================================= */
+
+@keyframes about-glow {
+  from {
+    transform: scale(0.9);
+    opacity: 0.35;
+  }
+  to {
+    transform: scale(1.12);
+    opacity: 0.7;
+  }
+}
+
+@keyframes about-frame-glow {
+  from {
+    box-shadow:
+      0 0 20px rgba(168, 85, 247, 0.15),
+      0 0 45px rgba(34, 211, 238, 0.05),
+      inset 0 0 30px rgba(168, 85, 247, 0.05);
+  }
+  to {
+    box-shadow:
+      0 0 30px rgba(168, 85, 247, 0.3),
+      0 0 65px rgba(34, 211, 238, 0.13),
+      inset 0 0 35px rgba(34, 211, 238, 0.08);
+  }
+}
+
+@keyframes about-reflection {
+  0%, 35% {
+    transform: translateX(-100%);
+  }
+  65%, 100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes about-live-pulse {
+  50% {
+    opacity: 0.4;
+    box-shadow: 0 0 3px #67f5c1;
+  }
+}
+
+@keyframes about-ring-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes about-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* =========================================================
+  32. RESPONSIVE SOBRE MÍ
+========================================================= */
+
+@media (max-width: 900px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .about-visual {
+    min-height: 400px;
+  }
+
+  .about-text {
+    max-width: 650px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-section {
+    width: calc(100% - 36px);
+    margin: 100px auto 90px;
+    padding: 0;
+  }
+
+  .about-heading {
+    gap: 80px;
+    margin-bottom: 40px;
+  }
+
+  .about-heading .eyebrow {
+    font-size: 10px;
+  }
+
+  .about-visual {
+    min-height: 350px;
+  }
+
+  .about-frame {
+    width: min(290px, 85%);
+    height: 330px;
+  }
+
+  .about-monogram {
+    width: 175px;
+    height: 175px;
+  }
+
+  .about-monogram > span {
+    font-size: 105px;
+  }
+
+  .about-decoration-one {
+    right: 0;
+  }
+
+  .about-decoration-two {
+    left: 0;
+  }
+
+  .about-coordinate {
+    right: 5px;
+    font-size: 8px;
+  }
+
+  .about-text h2 {
+    font-size: 33px;
+    letter-spacing: -1px;
+  }
+
+  .about-text > p {
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+  33. ACCESIBILIDAD - MOVIMIENTO REDUCIDO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .about-visual-glow,
+  .about-frame,
+  .about-frame::before,
+  .about-live i,
+  .about-monogram-ring,
+  .about-decoration {
+    animation: none !important;
+  }
+}
+
+/* =========================================
+  34. CONTACT SECTION
+========================================= */
+
+.contact-section {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  width: min(1200px, calc(100% - 64px));
+  margin: 150px auto 0;
+  padding: 0 0 65px;
+  background: transparent;
+  border: none;
+}
+
+.contact-glow {
+  position: absolute;
+  z-index: -1;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.contact-glow-one {
+  top: 15%;
+  left: -180px;
+  background: #8b35ff;
+}
+
+.contact-glow-two {
+  right: -180px;
+  bottom: 25%;
+  background: #00c8ff;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: 90px;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.contact-intro {
+  max-width: 470px;
+}
+
+.contact-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: #b7a8d5;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.contact-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #64f5bd;
+  box-shadow: 0 0 12px #64f5bd;
+  animation: contact-pulse 2s infinite;
+}
+
+.contact-intro h2 {
+  margin: 0 0 25px;
+  color: #fff;
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 1.04;
+  letter-spacing: -4px;
+}
+
+.contact-intro > p {
+  max-width: 420px;
+  color: #a6a1b5;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.contact-signature {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 38px;
+  color: #c8b4ff;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+}
+
+.contact-signature > span {
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, #b45aff, #00d5ff);
+  box-shadow: 0 0 10px rgba(173, 87, 255, 0.7);
+}
+
+.contact-cards {
+  display: grid;
+  gap: 17px;
+}
+
+.contact-card {
+  --card-accent: #a855f7;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 24px 27px;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.055),
+    rgba(255, 255, 255, 0.018)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 17px;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.contact-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--card-accent),
+    transparent
+  );
+  opacity: 0.75;
+}
+
+.contact-card::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -50%;
+  width: 50%;
+  height: 300%;
+  transform: rotate(25deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.055),
+    transparent
+  );
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--card-accent), transparent 45%);
+  background: linear-gradient(
+    115deg,
+    color-mix(in srgb, var(--card-accent), transparent 91%),
+    rgba(255, 255, 255, 0.035)
+  );
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    0 0 25px color-mix(in srgb, var(--card-accent), transparent 90%);
+}
+
+.contact-card:hover::after {
+  left: 130%;
+}
+
+.contact-email {
+  --card-accent: #b46aff;
+}
+
+.contact-whatsapp {
+  --card-accent: #40e69a;
+}
+
+.contact-github {
+  --card-accent: #53c8ff;
+}
+
+.contact-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 23px;
+}
+
+.contact-icon {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  color: var(--card-accent);
+  background: color-mix(in srgb, var(--card-accent), transparent 90%);
+  border: 1px solid color-mix(in srgb, var(--card-accent), transparent 78%);
+  border-radius: 12px;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.contact-icon svg {
+  width: 21px;
+  height: 21px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.08) rotate(-5deg);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--card-accent), transparent 75%);
+}
+
+.contact-arrow {
+  color: #858095;
+  font-size: 22px;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.contact-card:hover .contact-arrow {
+  color: var(--card-accent);
+  transform: translate(3px, -3px);
+}
+
+.contact-label {
+  color: #938ba6;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.contact-card-info h3 {
+  margin: 7px 0;
+  color: #f6f3ff;
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.contact-card-info p {
+  margin: 0;
+  color: #a9a3b8;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.contact-card-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 21px;
+  padding-top: 15px;
+  color: #c5bdd6;
+  font-size: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.contact-card-action span {
+  color: var(--card-accent);
+  font-size: 15px;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover .contact-card-action span {
+  transform: translate(3px, -3px);
+}
+
+@keyframes contact-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px #64f5bd;
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 4px #64f5bd;
+  }
+}
+
+/* =========================================
+  35. CONTACT RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+  .contact-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+  }
+
+  .contact-intro h2 {
+    font-size: clamp(45px, 6vw, 62px);
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-section {
+    width: calc(100% - 36px);
+    margin: 100px auto 0;
+    padding: 0 0 25px;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .contact-intro {
+    max-width: 100%;
+  }
+
+  .contact-intro h2 {
+    font-size: clamp(46px, 12vw, 65px);
+    letter-spacing: -2.5px;
+  }
+
+  .contact-intro > p {
+    font-size: 14px;
+  }
+
+  .contact-card {
+    padding: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-status-dot {
+    animation: none;
+  }
+
+  .contact-card,
+  .contact-card::after,
+  .contact-icon,
+  .contact-arrow,
+  .contact-card-action span {
+    transition: none;
   }
 }

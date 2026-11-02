@@ -12,9 +12,9 @@ export default function Home() {
         </Link>
 
         <nav className="nav-links">
-          <Link href="#inicio">Inicio</Link>
-          <Link href="#proyectos">Proyectos</Link>
-          <Link href="#sobre-mi">Sobre mí</Link>
+          <a href="#inicio">Inicio</a>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#sobre-mi">Sobre mí</a>
         </nav>
 
         <a href="#contacto" className="contact-link">
@@ -374,23 +374,197 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="about-intro" id="sobre-mi">
-        <p className="eyebrow">
-          <span className="section-number">02</span> UN POCO SOBRE MÍ
-        </p>
-        <h2>
-          Curioso por naturaleza.
-          <br />
-          <span className="gradient-text">Desarrollador por pasión.</span>
-        </h2>
-        <p>
-          Creo que cada idea puede convertirse en algo extraordinario.
-          Estoy construyendo mi camino en el desarrollo de software,
-          aprendiendo con cada proyecto y disfrutando el proceso.
-        </p>
+      <section className="about-section" id="sobre-mi">
+        <div className="about-heading">
+          <p className="eyebrow">
+            <span className="section-number">02</span> UN POCO SOBRE MÍ
+          </p>
+          <span className="about-heading-line" />
+        </div>
+
+        <div className="about-content">
+          <div className="about-visual">
+            <div className="about-visual-glow" />
+
+            <div className="about-frame">
+              <div className="about-frame-top">
+                <span>PROFILE / 001</span>
+                <span className="about-live">
+                  <i /> ONLINE
+                </span>
+              </div>
+
+              <div className="about-monogram">
+                <span>E</span>
+                <div className="about-monogram-ring" />
+              </div>
+
+              <div className="about-frame-bottom">
+                <span>ESTEVEN RODRÍGUEZ</span>
+                <span>CREATIVE DEVELOPER</span>
+              </div>
+            </div>
+
+            <span className="about-decoration about-decoration-one">{"{ }"}</span>
+            <span className="about-decoration about-decoration-two">✳</span>
+            <span className="about-coordinate">3° 27' N · 76° 32' W</span>
+          </div>
+
+          <div className="about-text">
+            <span className="about-kicker">MÁS ALLÁ DEL CÓDIGO</span>
+
+            <h2>
+              Curioso por naturaleza.
+              <br />
+              <span className="gradient-text">
+                Desarrollador por pasión.
+              </span>
+            </h2>
+
+            <p>
+              Soy Esteven Rodríguez Ayala. Me gusta explorar nuevas ideas,
+              entender cómo funcionan las cosas y encontrar formas de
+              convertirlas en soluciones digitales.
+            </p>
+
+            <p>
+              Estoy construyendo mi camino en el desarrollo de software,
+              aprendiendo con cada proyecto, enfrentando nuevos retos y
+              disfrutando cada parte del proceso.
+            </p>
+
+            <div className="about-signature">
+              <span className="about-signature-line" />
+              <span>SIEMPRE HAY ALGO NUEVO POR CREAR.</span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <footer className="site-footer" id="contacto">
+      <section className="contact-section" id="contacto">
+        <div className="contact-glow contact-glow-one" />
+        <div className="contact-glow contact-glow-two" />
+
+        <div className="about-heading">
+          <p className="eyebrow">
+            <span className="section-number">03</span> HABLEMOS
+          </p>
+
+          <span className="about-heading-line" />
+        </div>
+
+        <div className="contact-content">
+          <div className="contact-intro">
+            <span className="contact-kicker">
+              <span className="contact-status-dot" />
+              SIEMPRE ABIERTO A NUEVAS IDEAS
+            </span>
+
+            <h2>
+              ¿Tienes algo
+              <br />
+              <span className="gradient-text">en mente?</span>
+            </h2>
+
+            <p>
+              Todo gran proyecto comienza con una conversación.
+              Si quieres conocer mi trabajo, compartir una idea
+              o simplemente conectar, puedes encontrarme por aquí.
+            </p>
+
+            <div className="contact-signature">
+              <span />
+              <strong>CREEMOS ALGO INCREÍBLE.</strong>
+            </div>
+          </div>
+
+          <div className="contact-cards">
+            <a
+              href="mailto:estescis.150396@gmail.com"
+              className="contact-card contact-email"
+              aria-label="Enviarme un correo electrónico"
+            >
+              <div className="contact-card-top">
+                <span className="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="3" />
+                    <path d="m4 7 8 6 8-6" />
+                  </svg>
+                </span>
+                <span className="contact-arrow">↗</span>
+              </div>
+
+              <div className="contact-card-info">
+                <span className="contact-label">ESCRÍBEME</span>
+                <h3>Correo electrónico</h3>
+                <p>estescis.150396@gmail.com</p>
+              </div>
+
+              <span className="contact-card-action">
+                Enviar un correo <span>↗</span>
+              </span>
+            </a>
+
+            <a
+              href="https://wa.me/573028452489"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-card contact-whatsapp"
+              aria-label="Contactarme por WhatsApp"
+            >
+              <div className="contact-card-top">
+                <span className="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z" />
+                    <path d="M9 9c.4 2 2 3.6 4 4l1-1 2 1c-.3 1.5-1.5 2-3 1.5-2.5-.8-4.5-2.8-5.3-5.3C7.2 7.7 7.7 6.5 9.2 6.2l1 2L9 9Z" />
+                  </svg>
+                </span>
+                <span className="contact-arrow">↗</span>
+              </div>
+
+              <div className="contact-card-info">
+                <span className="contact-label">HABLEMOS DIRECTAMENTE</span>
+                <h3>WhatsApp</h3>
+                <p>+57 302 845 2489</p>
+              </div>
+
+              <span className="contact-card-action">
+                Iniciar conversación <span>↗</span>
+              </span>
+            </a>
+
+            <a
+              href="https://github.com/Estescis"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-card contact-github"
+              aria-label="Visitar mi perfil de GitHub"
+            >
+              <div className="contact-card-top">
+                <span className="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.3-.4 6.8-1.6 6.8-7.2a5.6 5.6 0 0 0-1.5-3.9 5.2 5.2 0 0 0-.1-3.9S17 0 13 3a13.5 13.5 0 0 0-7 0C2 0 1.8.5 1.8.5a5.2 5.2 0 0 0-.1 3.9A5.6 5.6 0 0 0 .2 8.3c0 5.6 3.5 6.8 6.8 7.2a3.4 3.4 0 0 0-1 2.6V22" transform="translate(2 0) scale(.9)" />
+                  </svg>
+                </span>
+                <span className="contact-arrow">↗</span>
+              </div>
+
+              <div className="contact-card-info">
+                <span className="contact-label">MI CÓDIGO Y PROYECTOS</span>
+                <h3>GitHub</h3>
+                <p>github.com/Estescis</p>
+              </div>
+
+              <span className="contact-card-action">
+                Explorar perfil <span>↗</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <footer className="site-footer">
         <Link href="/" className="brand">
           <span className="brand-icon">E</span>
           <span>
